@@ -8,9 +8,8 @@ class DmGraphBackgroundDrawer extends DmGraphDrawer
 	
 	public $note;
 	
-	public function draw(DmGraphics $graphics , $dataList)
+	public function draw(DmGraphics $graphics , $dataLists)
 	{
-		$l = count($dataList);
 		
 		$graphics->lineStyle(3,0xBBBBBB);
 		
@@ -58,16 +57,19 @@ class DmGraphBackgroundDrawer extends DmGraphDrawer
 		$graphics
 			->lineStyle(2,0x66CC33)
 			->textStyle(2,0x66CC33);
-		foreach ($dataList as $data) {
-			if ($data->label === "") continue; 
-			$x = ($data->x - $this->minX) / ($this->maxX - $this->minX) * $W + $PL;
 			
-			$graphics
-				->moveTo($x, $PT)
-				->lineTo($x, $PT+$H)
-				->textTo($x, $PT+$H, $data->x)
-				->textTo($x, $PT+$H+10, $data->label);
+		foreach ($dataLists as $dataList) {
+			foreach ($dataList as $data) {
+				if ($data->label === "") continue; 
+				$x = ($data->x - $this->minX) / ($this->maxX - $this->minX) * $W + $PL;
 				
+				$graphics
+					->moveTo($x, $PT)
+					->lineTo($x, $PT+$H)
+					->textTo($x, $PT+$H, $data->x)
+					->textTo($x, $PT+$H+10, $data->label);
+					
+			}
 		}
 		
 	}

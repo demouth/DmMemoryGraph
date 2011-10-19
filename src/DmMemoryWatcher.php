@@ -27,6 +27,7 @@ class DmMemoryWatcher
 		
 		$this->watchedList[] = array(
 			'memory' => (int)(memory_get_usage() / 1000) ,
+			'peakMemory' => (int)(memory_get_peak_usage() / 1000) ,
 			'time' => number_format(microtime(true) - $this->startTime , 5),
 			'label' => $label
 		);
@@ -45,6 +46,20 @@ class DmMemoryWatcher
 		foreach ($watchedList as $value) {
 			$data = new DmGraphData();
 			$data->y = $value["memory"];
+			$data->x = $value["time"];
+			$data->label = $value["label"];
+			$dataList[] = $data;
+		}
+		return $dataList;
+	}
+	
+	public function peakToGraphDataList()
+	{
+		$dataList = array();
+		$watchedList = $this->watchedList;
+		foreach ($watchedList as $value) {
+			$data = new DmGraphData();
+			$data->y = $value["peakMemory"];
 			$data->x = $value["time"];
 			$data->label = $value["label"];
 			$dataList[] = $data;

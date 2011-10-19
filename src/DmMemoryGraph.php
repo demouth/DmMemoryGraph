@@ -45,8 +45,10 @@ class DmMemoryGraph
 	public static function toDataSchemeURI($width=500,$height=300)
 	{
 		$dataList = DmMemoryWatcher::getInstance()->toGraphDataList();
+		$peakDataList = DmMemoryWatcher::getInstance()->peakToGraphDataList();
 		$graph = new DmGraph($width,$height);
-		$graph->setDataList($dataList);
+		$graph->push($dataList);
+		$graph->push($peakDataList);
 		$graph->draw("X:time(seconds) , Y:memory(kilo bytes)");
 		return $graph->toDataSchemeURI();
 	}
