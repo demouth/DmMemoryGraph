@@ -2,6 +2,12 @@
 
 require_once dirname(__FILE__).'/DmColor.php';
 
+/**
+ * DmImage
+ * 画像を表すクラス。
+ * 
+ * @author demouth
+ */
 class DmImage
 {
 	
@@ -31,6 +37,12 @@ class DmImage
 	 */
 	protected static $_tempDirPath = "";
 	
+	/**
+	 * コンストラクタ。
+	 * @param int 画像幅（px）
+	 * @param int 画像高さ（px）
+	 * @param int 背景画像色 例:0x0099FF
+	 */
 	public function __construct($width , $height , $backgroundColor=0)
 	{
 		
@@ -88,6 +100,7 @@ class DmImage
 	
 	/**
 	 * Destroy an image.
+	 * @return void
 	 */
 	public function destroy()
 	{
@@ -126,6 +139,13 @@ class DmImage
 		}
 	}
 	
+	/**
+	 * TEMP画像の保存先を指定する。
+	 * このメソッドを呼ばない場合、このライブラリ配置先と同階層に作成されます。
+	 * 
+	 * @param string TEMP画像保存先のフルパス
+	 * @return void
+	 */
 	public static function setTempDirPath($path)
 	{
 		self::$_tempDirPath = $path;

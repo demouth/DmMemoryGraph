@@ -2,7 +2,10 @@
 
 
 /**
+ * DmColor
+ * 色を表すクラスです。
  * 
+ * @example
  * Example 1:
  * $color = new DmColor();
  * $color->r(255)->g(100)->b(50);
@@ -12,27 +15,64 @@
  * DmColor::rgb(0xFF0066);
  * echo $color->r(); // 255
  * 
+ * @author demouth
  */
 class DmColor
 {
 	
+	/**
+	 * @var int
+	 */
 	protected $_r = 0;
+	
+	/**
+	 * @var int
+	 */
 	protected $_g = 0;
+	
+	/**
+	 * @var int
+	 */
 	protected $_b = 0;
+	
+	/**
+	 * @var int
+	 */
 	protected $_a = 0;
 	
+	
+	/**
+	 * @var int
+	 */
 	protected $_h;
+	
+	/**
+	 * @var int
+	 */
 	protected $_s;
+	
+	/**
+	 * @var int
+	 */
 	protected $_v;
 	
+	/**
+	 * コンストラクタ。
+	 */
 	public function __construct()
 	{
 		
 	}
 	
+	/**
+	 * マジックメソッド
+	 */
 	public function __call($name, $arguments)
 	{
+		
+		//対応するメソッドリスト
 		$colorFunctions = array("r","g","b","a");
+		
 		if (in_array($name, $colorFunctions)){
 			$varName = "_".$name;
 			if(count($arguments)>0){

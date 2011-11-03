@@ -3,12 +3,30 @@ require_once dirname(__FILE__).'/DmImage.php';
 require_once dirname(__FILE__).'/DmGraphBackgroundDrawer.php';
 require_once dirname(__FILE__).'/DmGraphDataDrawer.php';
 
+/**
+ * DmGraph
+ * グラフを表すクラス。
+ * 
+ * @author demouth
+ */
 class DmGraph
 {
 	
+	/**
+	 * @var DmImage
+	 */
 	protected $image;
+	
+	/**
+	 * @var DmGraphData[]
+	 */
 	protected $dataLists = array();
 	
+	/**
+	 * コンストラクタ。
+	 * @param int
+	 * @param int
+	 */
 	public function __construct($width , $height)
 	{
 		

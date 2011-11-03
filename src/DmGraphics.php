@@ -2,6 +2,23 @@
 
 require_once dirname(__FILE__).'/DmColor.php';
 
+/**
+ * DmGraphics
+ * 画像への図形描画等を行う。
+ * 
+ * @example
+ * $graphics
+ * 		->moveTo($PL, $PT)
+ * 		->lineTo($PL+$W , $PT)
+ * 		->moveTo($PL, $PT+$H)
+ * 		->lineTo($PL+$W , $PT+$H)
+ * 		->moveTo($PL, $PT)
+ * 		->lineTo($PL, $PT+$H)
+ * 		->moveTo($PL+$W, $PT)
+ * 		->lineTo($PL+$W, $PT+$H)
+ * 
+ * @author demouth
+ */
 class DmGraphics
 {
 	
@@ -16,7 +33,12 @@ class DmGraphics
 	protected $_width;
 	protected $_height;
 	
-	
+	/**
+	 * コンストラクタ。
+	 * @param resource 画像リソース
+	 * @param int 画像幅
+	 * @param int 画像高さ
+	 */
 	public function __construct($imageResource , $width , $height)
 	{
 		$this->_imageResource = $imageResource;
@@ -24,19 +46,29 @@ class DmGraphics
 		$this->_height = $height;
 	}
 	
+	/**
+	 * 画像幅取得。
+	 * @return int
+	 */
 	public function getWidth()
 	{
 		return $this->_width;
 	}
 	
+	/**
+	 * 画像高さ取得。
+	 * @return int
+	 */
 	public function getHeight()
 	{
 		return $this->_height;
 	}
 	
 	/**
-	 * 
-	 * return self
+	 * 現在の描画位置を (x, y) に移動します。
+	 * @param int X軸(px)
+	 * @param int Y軸(px)
+	 * @return DmGraphics
 	 */
 	public function moveTo($x,$y)
 	{
@@ -45,6 +77,13 @@ class DmGraphics
 		return $this;
 	}
 	
+	/**
+	 * 現在の描画位置から (x, y) まで、現在の線のスタイルを使用して線を描画します。
+	 * その後で、現在の描画位置は (x, y) に設定されます。
+	 * @param int X軸(px)
+	 * @param int Y軸(px)
+	 * @return DmGraphics
+	 */
 	public function lineTo($x,$y)
 	{
 		
@@ -71,6 +110,12 @@ class DmGraphics
 		return $this;
 	}
 	
+	/**
+	 * 
+	 * @param int 線幅(px)
+	 * @param int 線色 例:0x00FF99
+	 * @return DmGraphics
+	 */
 	public function lineStyle($thickness , $color=0)
 	{
 		$this->_lineThickness = $thickness;
@@ -78,6 +123,12 @@ class DmGraphics
 		return $this;
 	}
 	
+	/**
+	 * テキストスタイルを決定する。
+	 * @param int latin2 エンコーディングの組み込みのフォントの場合は 1, 2, 3, 4, 5 のいずれか (数字が大きなほうが、より大きいフォントに対応します)、 あるいは imageloadfont() で登録したフォントの識別子のいずれか。
+	 * @param int 線色 例:0x00FF99
+	 * @return DmGraphics
+	 */
 	public function textStyle($font , $color=0)
 	{
 		$this->_font = $font;
@@ -85,6 +136,13 @@ class DmGraphics
 		return $this;
 	}
 	
+	/**
+	 * 文字列を描画する
+	 * @param int X軸(px)
+	 * @param int Y軸(px)
+	 * @param string 文字列
+	 * @return DmGraphics
+	 */
 	public function textTo($x,$y,$text)
 	{
 		imagestring(
@@ -98,6 +156,9 @@ class DmGraphics
 		return $this;
 	}
 	
+	/**
+	 * 
+	 */
 	public function destroy()
 	{
 		

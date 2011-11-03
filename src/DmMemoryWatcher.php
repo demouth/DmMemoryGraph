@@ -1,19 +1,45 @@
 <?php
 require_once dirname(__FILE__).'/DmGraphData.php';
 
-
+/**
+ * DmMemoryWatcher
+ * シングルトンクラスです。
+ * メモリ観測を担当するクラスです。
+ * 
+ * @author demouth
+ */
 class DmMemoryWatcher
 {
 	
+	/**
+	 * @var DmMemoryWatcher
+	 */
 	protected static $instance;
+	
+	/**
+	 * 観測地点リスト。
+	 * @var array
+	 */
 	protected $watchedList = array();
+	
+	/**
+	 * 観測開始時刻。
+	 * @var string
+	 */
 	protected $startTime;
 	
+	/**
+	 * コンストラクタ。
+	 */
 	public function __construct()
 	{
 		$this->startTime = microtime(true);
 	}
 	
+	/**
+	 * シングルトンインスタンス取得。
+	 * @return DmMemoryWatcher
+	 */
 	public static function getInstance()
 	{
 		if (!self::$instance){
@@ -22,7 +48,7 @@ class DmMemoryWatcher
 		return self::$instance;
 	}
 	
-	public function _watch($label="")
+	protected function _watch($label="")
 	{
 		
 		$this->watchedList[] = array(
@@ -34,11 +60,21 @@ class DmMemoryWatcher
 		
 	}
 	
+	/**
+	 * 観測地点を追加する。
+	 * @param string グラフに貼るラベル名
+	 * @return void
+	 */
 	public static function watch($label="")
 	{
 		self::getInstance()->_watch($label);
 	}
 	
+	/**
+	 * DmGraphData形式へ変換して配列で返す。
+	 * 観測地点のメモリを返す。
+	 * @return DmGraphData[]
+	 */
 	public function toGraphDataList()
 	{
 		$dataList = array();
@@ -53,6 +89,11 @@ class DmMemoryWatcher
 		return $dataList;
 	}
 	
+	/**
+	 * DmGraphData形式へ変換して配列で返す。
+	 * ピークメモリを返す。
+	 * @return DmGraphData[]
+	 */
 	public function peakToGraphDataList()
 	{
 		$dataList = array();
