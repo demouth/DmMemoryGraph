@@ -21,7 +21,7 @@ DmMemoryGraph version 0.2.0
 Example
 -----
 
-http://demouth.net/git/dmmemorygraph/
+https://demouth.github.io/DmMemoryGraph/
 
 Usage
 -----
